@@ -1,0 +1,31 @@
+data;conta;tipo;valor;descrição
+2026-01-01;CAIXA;C;1000.00;Saldo inicial
+2026-01-02;CAIXA;D;200.00;Compra insumos
+2026-01-02;BANCO;C;500.00;Recebimento cliente
+2026-01-03;CAIXA;D;900.00;Pagamento fornecedor
+2026-01-03;BANCO;D;100.00;Tarifa bancaria
+2026-01-04;CAIXA;C;1500.00;Venda à vista
+2026-01-04;BANCO;C;800.00;Transferência recebida
+2026-01-05;CAIXA;D;350.00;Compra material escritório
+2026-01-05;BANCO;D;220.00;Pagamento água
+2026-01-06;CAIXA;C;2300.00;Recebimento serviços
+2026-01-06;BANCO;D;450.00;Pagamento energia
+2026-01-07;CAIXA;D;120.00;Combustível
+2026-01-07;BANCO;C;1200.00;Recebimento aluguel
+2026-01-08;CAIXA;C;800.00;Venda produto
+2026-01-08;BANCO;D;300.00;Pagamento internet
+2026-01-09;CAIXA;D;600.00;Compra mercadoria
+2026-01-09;BANCO;C;2000.00;Empréstimo
+2026-01-10;CAIXA;C;950.00;Comissão vendas
+2026-01-10;BANCO;D;150.00;Taxa manutenção
+2026-01-11;CAIXA;D;430.00;Pagamento telefone
+2026-01-11;BANCO;C;3100.00;Recebimento contrato
+2026-01-12;CAIXA;C;670.00;Venda balcão
+2026-01-12;BANCO;D;520.00;Pagamento fornecedor
+2026-01-13;CAIXA;D;280.00;Material limpeza
+2026-01-13;BANCO;C;1450.00;Recebimento cliente
+2026-01-14;CAIXA;C;1100.00;Serviço prestado
+2026-01-14;BANCO;D;380.00;Pagamento aluguel
+2026-01-15;CAIXA;D;200.00;Manutenção equipamento
+2026-01-15;BANCO;C;4200.00;Recebimento projeto
+2026-01-15;CAIXA;C;600.00;Devolução compra
