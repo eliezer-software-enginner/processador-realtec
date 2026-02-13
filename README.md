@@ -8,4 +8,4 @@ Utilizei JavaFX juntamente com meu framework próprio Megalodonte.
 Após download, extraia o arquivo e execute o arquivo `realtec-processador.exe` clicando duas vezes sobre ele.
 Então você já poderá seguir com o uso do aplicativo normalmente.
 
-[Video explicativo de como utilizar](https://)
+[Video explicativo de como utilizar](https://www.youtube.com/watch?v=rhrxS9Da0To)
