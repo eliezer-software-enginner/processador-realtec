@@ -1,5 +1,8 @@
 package my_app;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import megalodonte.ComputedState;
@@ -113,16 +116,33 @@ public class HomeUi {
             var totalCreditos = new AtomicReference<>(BigDecimal.ZERO);
             var totalDebitos = new AtomicReference<>(BigDecimal.ZERO);
             var quantidadeLancamentos = new AtomicInteger(0);
-            var numeroLinha = new AtomicInteger(1);
+            int numeroLinha = 1;
 
             try(var lines = Files.lines( file.toPath())){
-                lines.skip(1).forEach(linha-> {
-                    numeroLinha.incrementAndGet();
+                var linesSemHeader = lines.skip(1).toList();
+                for (String linha : linesSemHeader) {
+                    numeroLinha ++;
                     var split = linha.split(";");
                     String data = split[0].trim();
                     String conta = split[1].trim();
+
+                    if(conta.trim().isEmpty()){
+                        showAlertError("Banco não pode estar vazio, verifique seu .CSV! Linha com erro: " + numeroLinha);
+                        return;
+                    }
+
+                    if(!data.matches("\\d{4}-\\d{2}-\\d{2}")){
+                        showAlertError("Data inválida na linha " + numeroLinha + ": " + data + ". Use o formato yyyy-mm-dd (ex: 2026-01-01)!");
+                        return;
+                    }
+
                     var tipo = Tipo.valueOf(split[2].trim().toUpperCase());
-                    var valor = new BigDecimal(split[3].trim());
+                    String valorStr = split[3].trim();
+                    if(!valorStr.matches("-?\\d+(\\.\\d+)?")){
+                        showAlertError("Valor inválido na linha " + numeroLinha + ": " + valorStr + ". Use ponto (.) como separador decimal (ex: 100.50)!");
+                        return;
+                    }
+                    var valor = new BigDecimal(valorStr);
                     String descricao = split[4].trim();
 
                     registros.add(new Registro(data, conta, tipo, valor, descricao));
@@ -141,11 +161,11 @@ public class HomeUi {
                     contaValorMap.put(conta, valorCalculado);
 
                     if (valorCalculado.compareTo(BigDecimal.ZERO) < 0) {
-                        inconsistencias.add(new Inconsistencia(numeroLinha.get(), conta, valorCalculado, descricao));
+                        inconsistencias.add(new Inconsistencia(numeroLinha, conta, valorCalculado, descricao));
                     }
-                });
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                }
+            } catch (Exception e) {
+               showAlertError("Erro encontrado: " + e.getMessage());
             }
 
             var entries = contaValorMap.entrySet().stream()
@@ -157,4 +177,16 @@ public class HomeUi {
             totaisState.set(new Totais(totalCreditos.get(), totalDebitos.get(), quantidadeLancamentos.get()));
         }
     };
+
+    public void showAlertError(String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erro");
+
+        ButtonType okButton = new ButtonType("Fechar", ButtonBar.ButtonData.OK_DONE);
+
+        alert.getButtonTypes().add(okButton);
+        alert.setOnCloseRequest(event -> alert.close());
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
